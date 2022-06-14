@@ -36,16 +36,16 @@ function Main(props) {
             <section className="profile">
                 <div className="profile__avatar-section">
                     <img className="profile__avatar" src={userAvatar} alt="Аватар пользователя" />
-                    <button className="profile__change-button" type="button" onClick={props.onEditAvatar}></button>
+                    <button className="profile__change-button" type="button" onClick={props.onEditAvatar} />
                 </div>
                 <div className="profile__info">
                     <div className="profile__edit">
                         <h1 className="profile__title">{userName}</h1>
-                        <button className="profile__edit-button" type="button" onClick={props.onEditProfile}></button>
+                        <button className="profile__edit-button" type="button" onClick={props.onEditProfile} />
                     </div>
                     <p className="profile__subtitle">{userAbout}</p>
                 </div>
-                <button className="profile__add-button" type="button" onClick={props.onAddPlace}></button>
+                <button className="profile__add-button" type="button" onClick={props.onAddPlace} />
             </section>
 
             <section className="photobook">
