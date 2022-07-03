@@ -1,9 +1,9 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import PopupWithForm from './PopupWithForm.js';
 
 function AddPlacePopup({ isOpen, onClose, onAddPlace, isSaving }) {
-    const [name, addName] = React.useState('');
-    const [link, addLink] = React.useState('');
+    const [name, addName] = useState('');
+    const [link, addLink] = useState('');
 
     function handleAddName(evt) {
         addName(evt.target.value);
@@ -18,7 +18,7 @@ function AddPlacePopup({ isOpen, onClose, onAddPlace, isSaving }) {
         onAddPlace({ name, link });
     }
 
-    React.useEffect(() => {
+    useEffect(() => {
         addName('');
         addLink('');
     }, [isOpen]);

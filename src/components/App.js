@@ -1,5 +1,4 @@
-import React, { useEffect } from 'react';
-import '../index.css';
+import React, { useState, useEffect } from 'react';
 import api from '../utils/api';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 import Header from './Header.js';
@@ -12,16 +11,16 @@ import AddPlacePopup from './AddPlacePopup.js';
 import DeletePlacePopup from './DeletePlacePopup.js';
 
 function App() {
-  const [currentUser, setCurrentUser] = React.useState({});
-  const [cards, setCards] = React.useState([]);
-  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = React.useState(false);
-  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = React.useState(false);
-  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = React.useState(false);
-  const [isCardPopupOpen, setIsCardPopupOpen] = React.useState({isOpen: false, element: {}});
-  const [isDataSaving, setIsDataSaving] = React.useState(false);
-  const [confirmCardDeletion, setConfirmCardDeletion] = React.useState({isOpen: false, card: {}});
+  const [currentUser, setCurrentUser] = useState({});
+  const [cards, setCards] = useState([]);
+  const [isEditAvatarPopupOpen, setEditAvatarPopupOpen] = useState(false);
+  const [isEditProfilePopupOpen, setEditProfilePopupOpen] = useState(false);
+  const [isAddPlacePopupOpen, setAddPlacePopupOpen] = useState(false);
+  const [isCardPopupOpen, setIsCardPopupOpen] = useState({isOpen: false, element: {}});
+  const [isDataSaving, setIsDataSaving] = useState(false);
+  const [confirmCardDeletion, setConfirmCardDeletion] = useState({isOpen: false, card: {}});
 
-  React.useEffect(() => {
+  useEffect(() => {
     api.getUserInfo()
       .then(data => {
         setCurrentUser(data);
@@ -31,7 +30,7 @@ function App() {
       })
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     api.getInitialCards()
       .then((data) => {
         setCards(data);
@@ -41,7 +40,7 @@ function App() {
       })
   }, []);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if(isEditAvatarPopupOpen || isEditProfilePopupOpen || isCardPopupOpen || isAddPlacePopupOpen || confirmCardDeletion) {
       function handleEscClose(evt) {
         if(evt.key === 'Escape') {
@@ -129,7 +128,7 @@ function App() {
     setIsDataSaving(true);
     api.deleteCard(card._id)
       .then(() => {
-        setCards(cards.filter((c) => c._id === card._id ? false : true));
+        setCards(cards.filter((c) => c._id !== card._id));
         closeAllPopups();
       })
       .catch((err) => {
