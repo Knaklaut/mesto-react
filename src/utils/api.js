@@ -30,10 +30,6 @@ class Api {
     .then(this._checkServerData)
   }
 
-  getInitialData() {
-    return Promise.all([this.getInitialCards(), this.getUserInfo()])
-  }
-
   updateUserInfo({ name, about }) {
     return fetch(this._userUrl, {
       method: 'PATCH',
@@ -61,17 +57,9 @@ class Api {
     .then(this._checkServerData)
   }
 
-  likeCard(cardId) {
+  changeLikeCardStatus(cardId, isNotLiked) {
     return fetch(`${this._likesUrl}/${cardId}`, {
-      method: 'PUT',
-      headers: this._headers
-    })
-    .then(this._checkServerData)
-  }
-
-  dislikeCard(cardId) {
-    return fetch(`${this._likesUrl}/${cardId}`, {
-      method: 'DELETE',
+      method: isNotLiked ? 'PUT' : 'DELETE',
       headers: this._headers
     })
     .then(this._checkServerData)
